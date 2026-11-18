@@ -142,6 +142,112 @@ footer{display:flex;justify-content:space-between;align-items:center;font-size:1
 #conn.demo i{background:#5aa9ff}
 @keyframes blink{50%{opacity:.25}}
 
+/* ---------- team details popup ---------- */
+.row{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.row:focus-visible .card{outline:3px solid var(--gold-300);outline-offset:3px}
+@media (hover:hover){.row:hover .card{filter:brightness(1.12)}}
+.pop{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;font-size:clamp(15px,.9vw + 1.1vh,36px);
+  background:radial-gradient(80vw 50vh at 50% -10%,rgba(240,183,58,.2),transparent 70%),linear-gradient(180deg,#3a0816,#16030a);
+  opacity:0;transform:scale(.97) translateY(2vh);transition:opacity .28s ease,transform .35s cubic-bezier(.2,.9,.3,1)}
+.pop[hidden]{display:none}
+.pop.show{opacity:1;transform:none}
+.pop-close{font-size:inherit;position:absolute;top:max(1.6vh,env(safe-area-inset-top));right:max(2vw,env(safe-area-inset-right));width:2.8em;height:2.8em;border-radius:50%;
+  border:2px solid rgba(255,255,255,.4);background:rgba(0,0,0,.5);color:#fff;display:grid;place-items:center;cursor:pointer;z-index:5;transition:transform .25s,background .25s,color .25s}
+.pop-close:hover,.pop-close:focus-visible{background:var(--gold-500);color:#3a1604;transform:rotate(90deg);outline:none}
+.pop-close svg{width:1.2em;height:1.2em}
+.pop-scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:max(3vh,env(safe-area-inset-top)) 4vw 4vh}
+.pop-inner{max-width:min(1500px,100%);margin:0 auto}
+.pop-head{display:flex;align-items:center;gap:1.6em;padding-right:4em}
+.pop-logo{position:relative;width:7em;height:7em;flex:none}
+.pop-logo::before{content:"";position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle,rgba(255,225,150,.3),transparent 68%)}
+.pop-logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 .4em .6em rgba(0,0,0,.55))}
+.pop-logo .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:3em;font-weight:700;color:var(--gold-300)}
+.pop-id{min-width:0}
+.pop-id h2{font-size:3em;font-weight:700;line-height:1;letter-spacing:.03em;overflow-wrap:anywhere;
+  background:linear-gradient(180deg,#fff,var(--gold-300) 70%,var(--gold-500));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pop-chips{display:flex;gap:.6em;margin-top:.7em;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:.4em;padding:.2em .8em .2em .5em;border-radius:2em;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.14);font-weight:600;font-size:1.05em;font-variant-numeric:tabular-nums}
+.chip svg{width:.9em;height:1.2em}
+.pop-stats{display:grid;grid-template-columns:1fr 1fr 1.7fr;gap:1em;margin:1.6em 0 1.4em}
+.stat{display:flex;flex-direction:column;gap:.35em;padding:.9em 1.1em;border-radius:1em;border:1px solid rgba(255,255,255,.14);background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.02))}
+.stat .k{font-size:.8em;letter-spacing:.12em;white-space:nowrap;color:var(--gold-300)}
+.stat>b{font-size:3em;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,var(--gold-100),var(--gold-500) 65%,var(--gold-700));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cats{display:flex;gap:.6em;flex-wrap:wrap}
+.catbox{display:flex;align-items:baseline;gap:.45em;padding:.3em .8em;border-radius:.8em;background:rgba(0,0,0,.32);font-weight:600;letter-spacing:.05em}
+.catbox b{font-size:1.9em;line-height:1;font-variant-numeric:tabular-nums}
+.catnone{opacity:.6;letter-spacing:.1em;font-size:.95em;padding:.5em 0}
+.catbox.Men{color:#8fc2ff}.catbox.Women{color:#ff9fd0}.catbox.Mixed{color:#c9a8ff}
+.ptable{border-radius:1em;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.28)}
+.thead,.prow{display:grid;grid-template-columns:1.3fr .8fr 2.2fr 1fr .7fr;gap:1em;align-items:center;padding:.8em 1.2em}
+.thead{font-size:.8em;letter-spacing:.2em;color:var(--gold-300);background:rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.12)}
+.thead>:last-child,.c-pts{text-align:right}
+.prow{font-size:1.15em;border-bottom:1px solid rgba(255,255,255,.07);border-left:.35em solid transparent}
+.prow.m-gold{border-left-color:#f0b73a;background:linear-gradient(90deg,rgba(240,183,58,.24),transparent 65%)}
+.prow.m-silver{border-left-color:#cfd6de;background:linear-gradient(90deg,rgba(207,214,222,.2),transparent 65%)}
+.prow.m-bronze{border-left-color:#d98a45;background:linear-gradient(90deg,rgba(217,138,69,.22),transparent 65%)}
+.c-event{font-weight:700;font-size:1.1em;letter-spacing:.02em}
+.c-win{font-size:.95em;opacity:.92;overflow-wrap:anywhere}
+.catpill{display:inline-block;padding:.15em .75em;border-radius:2em;font-size:.85em;font-weight:600;letter-spacing:.08em;background:rgba(255,255,255,.1)}
+.catpill.Men{color:#8fc2ff;background:rgba(80,140,255,.18)}.catpill.Women{color:#ff9fd0;background:rgba(255,100,180,.16)}.catpill.Mixed{color:#c9a8ff;background:rgba(160,110,255,.18)}
+.mpill{display:inline-flex;align-items:center;gap:.4em;padding:.15em .85em .15em .5em;border-radius:2em;font-weight:700;letter-spacing:.1em;font-size:.85em;box-shadow:0 .2em .6em rgba(0,0,0,.35)}
+.mpill svg{width:1em;height:1.3em}
+.mpill.gold{background:linear-gradient(135deg,#fff2b0,#f0b73a);color:#3a1604}
+.mpill.silver{background:linear-gradient(135deg,#fff,#aab3be);color:#222b36}
+.mpill.bronze{background:linear-gradient(135deg,#ffd3a3,#c97a38);color:#3a1604}
+.c-pts{font-weight:700;font-size:1.5em;color:var(--gold-300);font-variant-numeric:tabular-nums}
+.pother,.ptotal{display:flex;justify-content:space-between;align-items:center;padding:.8em 1.2em;font-weight:600;letter-spacing:.1em}
+.pother{font-size:.95em;opacity:.85;border-bottom:1px solid rgba(255,255,255,.07)}
+.pother b{font-size:1.3em}
+.ptotal{background:linear-gradient(90deg,rgba(240,183,58,.22),rgba(240,183,58,.06))}
+.ptotal b{font-size:2.2em;line-height:1;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,var(--gold-100),var(--gold-500));-webkit-background-clip:text;background-clip:text;color:transparent}
+.pother[hidden],.pempty[hidden]{display:none}
+.pempty{padding:3em 1em;text-align:center;color:var(--gold-300);letter-spacing:.2em;opacity:.85}
+.prow.in{animation:rowin .6s both;animation-delay:calc(var(--i,0)*.07s)}
+@keyframes rowin{from{opacity:0;transform:translateY(1.2em)}to{opacity:1;transform:none}}
+.prow.new{animation:rownew 1.6s cubic-bezier(.2,.9,.3,1)}
+@keyframes rownew{0%{opacity:0;transform:translateX(-3em);filter:brightness(2.2)}40%{opacity:1;transform:none;filter:brightness(1.8)}100%{filter:none}}
+.prow.upd{animation:rowupd 1.1s}
+@keyframes rowupd{0%,100%{filter:none}30%{filter:brightness(2)}}
+@media (max-width:720px){
+  .pop-scroll{padding:max(2vh,env(safe-area-inset-top)) 4vw 3vh}
+  .pop-head{gap:1em;padding-right:3.4em}
+  .pop-logo{width:5em;height:5em}
+  .pop-id h2{font-size:2.1em}
+  .pop-stats{grid-template-columns:1fr 1fr;margin:1.2em 0 1em}
+  .stat.catstat{grid-column:1/-1}
+  .stat>b{font-size:2.4em}
+  .thead{display:none}
+  .prow{font-size:1em;grid-template-columns:1fr auto;grid-template-areas:"ev pts" "cat medal" "win win";gap:.45em .8em;padding:.8em 1em}
+  .c-event{grid-area:ev}.c-pts{grid-area:pts}.c-cat{grid-area:cat}.c-medal{grid-area:medal;justify-self:end}.c-win{grid-area:win}
+  .pother,.ptotal{padding:.8em 1em}
+}
+
+/* ---------- phones / portrait screens ---------- */
+body.narrow .app{grid-template-rows:11vh 1fr 4vh;padding:1.2vh 3vw .8vh;gap:1vh}
+body.narrow header{gap:3vw}
+body.narrow .rule{display:none}
+body.narrow .title b{font-size:min(4.6vh,6.6vw)}
+body.narrow .live{font-size:min(2vh,3.4vw)}
+body.narrow footer{font-size:min(1.7vh,3.1vw);gap:2vw}
+body.narrow #connTxt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.narrow #board{margin-top:1.4vh}
+body.narrow .card{grid-template-columns:calc(var(--rh)*.3) calc(var(--rh)*.5) minmax(0,1fr) auto;grid-template-rows:1.25fr .75fr;gap:0 calc(var(--rh)*.08);padding:0 calc(var(--rh)*.1);border-radius:calc(var(--rh)*.14);border-width:2px}
+body.narrow .card.p1,body.narrow .card.p2,body.narrow .card.p3{border-width:3px}
+body.narrow .rank{grid-area:1/1/2/2;align-self:center;width:calc(var(--rh)*.3);height:calc(var(--rh)*.3)}
+body.narrow .rank .n{font-size:calc(var(--rh)*.17)}
+body.narrow .rank .o{display:none}
+body.narrow .logo{grid-area:1/2/2/3;align-self:center;width:calc(var(--rh)*.5);height:calc(var(--rh)*.5)}
+body.narrow .name{grid-area:1/3/2/4;align-self:center;font-size:calc(var(--rh)*.135);line-height:1.05}
+body.narrow .points{grid-area:1/4/2/5;min-width:0;align-self:center}
+body.narrow .points b{font-size:calc(var(--rh)*.4)}
+body.narrow .points small{display:none}
+body.narrow .medals{grid-area:2/1/3/5;align-self:start;justify-content:space-between;gap:calc(var(--rh)*.04);padding-bottom:calc(var(--rh)*.06)}
+body.narrow .medal{flex:1;justify-content:center;padding:calc(var(--rh)*.02) calc(var(--rh)*.04);gap:calc(var(--rh)*.05)}
+body.narrow .medal svg{width:calc(var(--rh)*.15);height:calc(var(--rh)*.2)}
+body.narrow .medal b{font-size:calc(var(--rh)*.19);min-width:1ch}
+body.narrow .crown{width:calc(var(--rh)*.2);height:calc(var(--rh)*.15);left:calc(var(--rh)*.05);top:calc(var(--rh)*-.11)}
+body.narrow .plus{font-size:calc(var(--rh)*.2);right:calc(var(--rh)*.05);top:calc(var(--rh)*-.1)}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}
   .row{transition-duration:.01ms}
@@ -178,6 +284,30 @@ footer{display:flex;justify-content:space-between;align-items:center;font-size:1
     <div id="conn"><i></i><span id="connTxt">Connecting…</span></div>
     <div id="upd"></div>
   </footer>
+</div>
+
+<div id="pop" class="pop" role="dialog" aria-modal="true" aria-label="Team details" hidden>
+  <button class="pop-close" id="popClose" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+  </button>
+  <div class="pop-scroll" id="pScroll"><div class="pop-inner">
+    <div class="pop-head">
+      <div class="pop-logo" id="pLogo"></div>
+      <div class="pop-id"><h2 id="pName"></h2><div class="pop-chips" id="pChips"></div></div>
+    </div>
+    <div class="pop-stats">
+      <div class="stat"><span class="k">EVENTS WON</span><b id="sEvents">0</b></div>
+      <div class="stat"><span class="k">TOTAL POINTS</span><b id="sPoints">0</b></div>
+      <div class="stat catstat"><span class="k">EVENTS WON BY CATEGORY</span><div class="cats" id="sCats"></div></div>
+    </div>
+    <div class="ptable">
+      <div class="thead"><span>EVENT</span><span>CATEGORY</span><span>WINNER</span><span>MEDAL</span><span>POINTS</span></div>
+      <div id="pRows"></div>
+      <div class="pempty" id="pEmpty">NO MEDALS WON YET</div>
+      <div class="pother" id="pOther" hidden><span>OTHER POINTS</span><b id="pOtherV">0</b></div>
+      <div class="ptotal"><span>TOTAL POINTS EARNED</span><b id="pTotal">0</b></div>
+    </div>
+  </div></div>
 </div>
 
 <script>
@@ -260,6 +390,9 @@ function makeRow(t, i){
     rank: null, points: null, gold: null, silver: null, bronze: null
   };
   r.card.addEventListener('animationend', e => { if (e.animationName === 'enter') r.card.classList.remove('enter'); });
+  el.tabIndex = 0; el.setAttribute('role', 'button'); el.setAttribute('aria-label', t.name + ' – team details');
+  el.addEventListener('click', () => openTeam(t.key));
+  el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openTeam(t.key); } });
   return r;
 }
 
@@ -307,6 +440,7 @@ function render(root){
   layout(true);
   if (list.length) firstRender = false;
   rows.forEach(r => { r.el.style.transition = ''; });
+  if (popKey) renderPopup();
 }
 
 function updateRow(r, t, created, initial){
@@ -340,7 +474,9 @@ function updateRow(r, t, created, initial){
   }
 }
 
+const narrowMQ = matchMedia('(max-aspect-ratio: 1/1), (max-width: 700px)');
 function layout(){
+  document.body.classList.toggle('narrow', narrowMQ.matches);
   const H = board.clientHeight, n = Math.max(order.length, 1);
   gap = Math.max(8, H * 0.018);
   rh = Math.min((H - gap * (n - 1)) / n, H * 0.3);
@@ -440,20 +576,121 @@ async function poll(){
 }
 addEventListener('online', () => { fails = 0; });
 
+/* ---------- team details popup ---------- */
+const pop = $('#pop');
+let popKey = null, popRows = new Map(), popSeen = null;
+const MEDAL = { gold:'GOLD', silver:'SILVER', bronze:'BRONZE' };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function openTeam(key){
+  if (!(root && root.teams && root.teams[key])) return;
+  popKey = key; popRows.forEach(e => e.remove()); popRows.clear(); popSeen = null; pop._k = null;
+  ['#sEvents','#sPoints','#pTotal'].forEach(s => { $(s)._v = 0; });
+  renderPopup();
+  pop.hidden = false; void pop.offsetWidth; pop.classList.add('show');
+  $('#pScroll').scrollTop = 0;
+  try { history.pushState({ pop:key }, ''); } catch(e){}
+  $('#popClose').focus({ preventScroll:true });
+}
+function closeTeam(){
+  if (!popKey) return;
+  popKey = null; pop.classList.remove('show');
+  setTimeout(() => { if (!popKey) pop.hidden = true; }, 320);
+}
+function requestClose(){ if (history.state && history.state.pop) history.back(); else closeTeam(); }
+$('#popClose').addEventListener('click', requestClose);
+addEventListener('popstate', closeTeam);
+addEventListener('keydown', e => { if (e.key === 'Escape' && popKey) requestClose(); });
+
+function rowHTML(x, team){
+  const m = MEDAL[x.m] ? x.m : 'gold';
+  return `<div class="c-event">${esc(x.e)}</div>
+    <div class="c-cat"><span class="catpill ${esc(x.c)}">${esc(x.c || '—')}</span></div>
+    <div class="c-win">${esc(x.w || team)}</div>
+    <div class="c-medal"><span class="mpill ${m}"><svg><use href="#m-${m}"/></svg>${MEDAL[m]}</span></div>
+    <div class="c-pts">+${fmt(num(x.p))}</div>`;
+}
+
+function renderPopup(){
+  const t = root && root.teams && root.teams[popKey];
+  if (!t){ closeTeam(); return; }
+  const name = String(t.name || popKey).trim().toUpperCase();
+  if (pop._k !== popKey){
+    pop._k = popKey;
+    const lg = logoFor(popKey) || logoFor(name);
+    $('#pLogo').innerHTML = lg ? `<img alt="" src="${lg}">` : `<span class="ph">${esc(name[0] || '?')}</span>`;
+  }
+  $('#pName').textContent = name;
+
+  const res = Array.isArray(t.r) ? t.r : [];
+  const sum = res.reduce((a, x) => a + num(x.p), 0);
+  countTo($('#sEvents'), res.length, 900);
+  countTo($('#sPoints'), num(t.points), 1200);
+  countTo($('#pTotal'), sum, 1000);
+  $('#pChips').innerHTML = ['gold','silver','bronze'].map(m => `<span class="chip"><svg><use href="#m-${m}"/></svg>${num(t[m])}</span>`).join('');
+
+  const cnt = { Men:0, Women:0, Mixed:0 };
+  res.forEach(x => { if (cnt[x.c] != null) cnt[x.c]++; });
+  const catHTML = ['Men','Women','Mixed'].filter(c => cnt[c])
+    .map(c => `<span class="catbox ${c}"><b>${cnt[c]}</b>${c}</span>`).join('');
+  $('#sCats').innerHTML = catHTML || '<span class="catnone">No medals yet</span>';
+
+  const other = Math.round((num(t.points) - sum) * 10) / 10;
+  $('#pOther').hidden = other === 0;
+  $('#pOtherV').textContent = (other > 0 ? '+' : '') + other;
+  $('#pEmpty').hidden = res.length > 0;
+
+  // keyed update: existing rows are edited in place, new rows animate in, removed rows disappear
+  const wrap = $('#pRows'), seen = {}, want = [];
+  res.forEach(x => {
+    let k = `${x.e}|${x.c}|${x.m}`;
+    seen[k] = (seen[k] || 0) + 1; if (seen[k] > 1) k += '#' + seen[k];
+    want.push([k, x]);
+  });
+  const keep = new Set(want.map(w => w[0]));
+  want.forEach(([k, x], i) => {
+    let el = popRows.get(k);
+    if (!el){
+      el = document.createElement('div'); el.className = 'prow m-' + x.m; popRows.set(k, el);
+      if (popSeen){ el.classList.add('new'); } else { el.classList.add('in'); el.style.setProperty('--i', i); }
+      el.addEventListener('animationend', () => el.classList.remove('in', 'new', 'upd'));
+    }
+    const sig = JSON.stringify(x) + name;
+    if (el._sig !== sig){
+      const changed = el._sig != null;
+      el.className = el.className.replace(/m-\w+/, 'm-' + x.m);
+      el.innerHTML = rowHTML(x, name);
+      el._sig = sig;
+      if (changed) restart(el, 'upd');
+    }
+    if (wrap.children[i] !== el) wrap.insertBefore(el, wrap.children[i] || null);
+  });
+  popRows.forEach((el, k) => { if (!keep.has(k)){ el.remove(); popRows.delete(k); } });
+  popSeen = keep;
+}
+
 /* ---------- demo mode ---------- */
 function startDemo(){
   const names = ['ROYAL RIDERS','ALPHA','VELOCITY','STORM BREAKERS'];
-  const teams = {}; names.forEach(n => teams[norm(n)] = { name:n, gold:0, silver:0, bronze:0, points:0 });
+  const events = [['TT','Men'],['Carom','Men'],['Carom','Women'],['Shuttle badminton','Men'],['Shuttle badminton','Women'],['100 Mtrs','Men'],['100 Mtrs','Women'],['Long Jump','Men'],['Tug of War','Men'],['Relay','Mixed'],['Throw Ball','Mixed']];
+  const people = ['THOMAS GEORGE','ARCHANA','BHARATH','VIJAY','SAHANA','RAJENDIRAN','KEERTHI','BASAPPA','JOMY','THIRU'];
+  const teams = {}; names.forEach(n => teams[norm(n)] = { name:n, gold:0, silver:0, bronze:0, points:0, r:[] });
+  const ks = Object.keys(teams), pick = a => a[(Math.random() * a.length) | 0];
+  let ei = 0;
+  const award = (k, medal, ev, cat, p) => {
+    const t = teams[k]; t[medal]++; t.points += p;
+    t.r.push({ e:ev, c:cat, m:medal, w: ev === 'Tug of War' || cat === 'Mixed' ? '' : pick(people) + ', ' + pick(people), p:p });
+  };
+  const round = () => {
+    const [ev, cat] = events[ei++ % events.length];
+    const order = ks.slice().sort(() => Math.random() - .5);
+    const pts = pick([[6,3,0],[5,3,2],[10,7,0]]);
+    award(order[0], 'gold', ev, cat, pts[0]); award(order[1], 'silver', ev, cat, pts[1]);
+    if (pts[2]) award(order[2], 'bronze', ev, cat, pts[2]);
+  };
   const push = () => { root = { teams: JSON.parse(JSON.stringify(teams)), updatedAt: Date.now() }; render(root); showUpdated(root.updatedAt); };
-  setStatus('demo'); push();
-  setInterval(() => {
-    const ks = Object.keys(teams), a = ks[(Math.random()*ks.length)|0];
-    let b; do { b = ks[(Math.random()*ks.length)|0]; } while (b === a);
-    const pts = [[6,3],[5,3],[10,7]][(Math.random()*3)|0];
-    teams[a].points += pts[0]; teams[a].gold++; teams[b].points += pts[1]; teams[b].silver++;
-    if (Math.random() < .4) { const c = ks[(Math.random()*ks.length)|0]; teams[c].bronze++; teams[c].points += 2; }
-    push();
-  }, 5000);
+  setStatus('demo'); round(); round(); push();
+  setInterval(() => { round(); push(); }, 5000);
 }
 
 /* ---------- kiosk niceties ---------- */
